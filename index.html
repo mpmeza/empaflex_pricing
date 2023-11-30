@@ -73,15 +73,17 @@ You are free to use the code in Commercial or non-commercial projects
     // (Medida del sustrato menos el ojo electronico menos el rebase)/ancho de la etiqueta, redondear a cero decimall
     cantidadEtiquetasAncho = (medidaSustrato1 - ojoElectronico - rebase.value)/anchoEtiqueta.value;
     console.log("cantidadEtiquetasAncho" + cantidadEtiquetasAncho);
-
+    var anchoFinal = 13/cantidadEtiquetasAncho;
     // Tamano de la mitad de la copia en mm dividida por el alto de la etiqueta, redondear a un decimal
     cantidadEtiquetasLargo = mitadCopia / (altoEtiqueta.value + rebase);
     console.log("cantidadEtiquetasLargo" + cantidadEtiquetasLargo);
+    var alturaFinal = (cantidadEtiquetasLargo + rebase )/ 25.4;
     // cantidad de etiquetas en el ancho por cantidad de etiquetas en el largo, redindear a 1 decimal
     unidadesPorCadaA3 = cantidadEtiquetasAncho * cantidadEtiquetasLargo;
     console.log("unidadesPorCadaA3" + unidadesPorCadaA3);
 
-    productSizePrice = anchoEtiqueta.value * altoEtiqueta.value;
+    var areaFinal = anchoFinal * alturaFinal;
+    productSizePrice = areaFinal;
     console.log("product size " + productSizePrice);
 
     //We return the cakeSizePrice
@@ -190,7 +192,7 @@ function calculateTotal()
     //Here we get the total price by calling our function
     //Each function returns a number so by calling them we add the values they return together
 
-    var cakePrice = getAnchoEtiqueta() + getMaterialPrice() + transmisionPrice() + trabajoNuevoPrice() + troquelPrice();
+    var cakePrice = (getAnchoEtiqueta() * getMaterialPrice()) + transmisionPrice() + trabajoNuevoPrice() + troquelPrice();
     
     //display the result
     var divobj = document.getElementById('totalPrice');
@@ -306,7 +308,7 @@ function hideTotal()
                 <label class='radiolabel'>Numero de colores<input type="number"  name="numeroColores" value="2" onclick="calculateTotal()" /></label><br/>
                 <label class='radiolabel'>Porcentaje de colores<input type="number"  name="porcentajeColores" value="2" onclick="calculateTotal()" /></label><br/>
                 <label class='radiolabel'>Porcentaje de color Blanco<input type="number"  name="porcentajeBlanco" value="2" onclick="calculateTotal()" /></label><br/>
-                <label >Material</label>
+                <label>Material</label>
                 <select id="material" name='material' onchange="calculateTotal()">
                 <option value="None">Seleccionar Material</option>
                 <option value="semigloss">Semigloss</option>
@@ -319,7 +321,7 @@ function hideTotal()
                </select>
                 <br/>
                 <br/> 
-                <label >Transmision</label>   
+                <label>Transmision</label>   
                 <select id="transmision" name='transmision' onchange="calculateTotal()">
                 <option value="None">Seleccionar Transmision</option>
                 <option value="automatico">Automatico</option>
